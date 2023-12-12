@@ -36,11 +36,11 @@ fs.readdir(template_dir, (err, files) => {
       const filePath = path.join(template_dir, file);
       const content = fs.readFileSync(filePath, 'utf8');
 
-      // タイトルと本文を抽出
       const title_match = content.match(/^## (.+)$/m);
       const label_match = content.match(/^## labels\s*\n\[([^\]]+)\]/m);
       const contentWithoutLabels = label_match ? content.split(label_match[0])[1] : content;
-      const body_match = contentWithoutLabels ? contentWithoutLabels.split(/^## .+$/m)[1].trim() : '';
+    // 本文を抽出（ラベルの後のすべてのテキスト）
+    const body_match = contentWithoutLabels ? contentWithoutLabels.split(/^## [^\n]+$/m)[1].trim() : '';
 
       if (title_match) {
         const issue_title = title_match[1].trim();

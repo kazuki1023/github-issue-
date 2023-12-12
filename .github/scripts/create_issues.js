@@ -56,11 +56,11 @@ fs.readdir(template_dir, function (err, files) {
         if (path.extname(file) === '.md') {
             var filePath = path.join(template_dir, file);
             var content = fs.readFileSync(filePath, 'utf8');
-            // タイトルと本文を抽出
             var title_match = content.match(/^## (.+)$/m);
             var label_match = content.match(/^## labels\s*\n\[([^\]]+)\]/m);
             var contentWithoutLabels = label_match ? content.split(label_match[0])[1] : content;
-            var body_match = contentWithoutLabels ? contentWithoutLabels.split(/^## .+$/m)[1].trim() : '';
+            // 本文を抽出（ラベルの後のすべてのテキスト）
+            var body_match = contentWithoutLabels ? contentWithoutLabels.split(/^## [^\n]+$/m)[1].trim() : '';
             if (title_match) {
                 var issue_title = title_match[1].trim();
                 var issue_body = body_match;
