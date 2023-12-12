@@ -39,7 +39,6 @@ var repo = "github-issue-";
 // GitHubのパーソナルアクセストークン
 dotenv.config();
 var token = process.env.GITHUB_TOKEN;
-console.log(token);
 // イシューテンプレートファイルがあるディレクトリのパス
 var template_dir = "docs/issues";
 // ヘッダーにトークンを設定
@@ -59,14 +58,18 @@ fs.readdir(template_dir, function (err, files) {
             var content = fs.readFileSync(filePath, 'utf8');
             // タイトルと本文を抽出
             var title_match = content.match(/^## (.+)$/m);
-            var body_match = content.replace(/^## .+$/m, '').trim();
+            var label_match = content.match(/^## labels\s*\n\[([^\]]+)\]/m);
+            var contentWithoutLabels = label_match ? content.split(label_match[0])[1] : content;
+            var body_match = contentWithoutLabels ? contentWithoutLabels.split(/^## .+$/m)[1].trim() : '';
             if (title_match) {
                 var issue_title = title_match[1].trim();
                 var issue_body = body_match;
+                var labels = label_match ? label_match[1].split(',').map(function (label) { return label.trim(); }) : [];
                 // イシューを作成するためのデータ
                 var data = {
                     title: issue_title,
-                    body: issue_body
+                    body: issue_body,
+                    labels: labels
                 };
                 axios_1.default.post("".concat(api_url, "/repos/").concat(owner, "/").concat(repo, "/issues"), data, { headers: headers })
                     .then(function (response) {

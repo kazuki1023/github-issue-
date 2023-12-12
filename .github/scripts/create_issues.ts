@@ -39,7 +39,8 @@ fs.readdir(template_dir, (err, files) => {
       // タイトルと本文を抽出
       const title_match = content.match(/^## (.+)$/m);
       const label_match = content.match(/^## labels\s*\n\[([^\]]+)\]/m);
-      const body_match = content.split(/^## labels\s*\n\[([^\]]+)\]/m)[1].trim();
+      const contentWithoutLabels = label_match ? content.split(label_match[0])[1] : content;
+      const body_match = contentWithoutLabels ? contentWithoutLabels.split(/^## .+$/m)[1].trim() : '';
 
       if (title_match) {
         const issue_title = title_match[1].trim();
