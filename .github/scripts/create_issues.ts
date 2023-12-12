@@ -39,15 +39,18 @@ fs.readdir(template_dir, (err, files) => {
       // タイトルと本文を抽出
       const title_match = content.match(/^## (.+)$/m);
       const body_match = content.replace(/^## .+$/m, '').trim();
+      const label_match = content.match(/^## labels\s*\n\[([^\]]+)\]/m);
 
       if (title_match) {
         const issue_title = title_match[1].trim();
         const issue_body = body_match;
+        const labels = label_match ? label_match[1].split(',').map(label => label.trim()) : [];
 
         // イシューを作成するためのデータ
         const data = {
           title: issue_title,
-          body: issue_body
+          body: issue_body,
+          labels: labels
         };
 
         axios.post(`${api_url}/repos/${owner}/${repo}/issues`, data, { headers })
