@@ -38,8 +38,8 @@ fs.readdir(template_dir, (err, files) => {
 
       // タイトルと本文を抽出
       const title_match = content.match(/^## (.+)$/m);
-      const body_match = content.replace(/^## .+$/m, '').trim();
       const label_match = content.match(/^## labels\s*\n\[([^\]]+)\]/m);
+      const body_match = content.split(/^## labels\s*\n\[([^\]]+)\]/m)[1].trim();
 
       if (title_match) {
         const issue_title = title_match[1].trim();
