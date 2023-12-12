@@ -5,7 +5,7 @@
     "strict": true, 
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "outDir": "./github/scripts"
+    "outDir": "./.github/scripts"
   },
   "include": [
     ".github/scripts/*.ts"
