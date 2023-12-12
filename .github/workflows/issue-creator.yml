@@ -23,4 +23,6 @@ jobs:
         run: npx tsc
 
       - name: Run Issue Creation Script
+        env:
+          GITHUB_TOKEN: ${{ SECRETS.TOKEN}}
         run: node .github/scripts/create_issues.js
