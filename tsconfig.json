@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true, 
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "./github/scripts"
+  },
+  "include": [
+    ".github/scripts/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts"
+  ]
+}
