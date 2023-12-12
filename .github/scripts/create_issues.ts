@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as process from 'process';
@@ -11,6 +12,7 @@ const owner = "kazuki1023";
 const repo = "github-issue-";
 
 // GitHubのパーソナルアクセストークン
+dotenv.config();
 const token = process.env.GITHUB_TOKEN;
 
 // イシューテンプレートファイルがあるディレクトリのパス
