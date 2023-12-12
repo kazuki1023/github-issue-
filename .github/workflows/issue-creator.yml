@@ -1,0 +1,26 @@
+name: Create Issues from Markdown Templates
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-issues:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14' # または別のバージョン
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build TypeScript
+        run: npx tsc
+
+      - name: Run Issue Creation Script
+        run: node .github/scripts/create_issues.js
