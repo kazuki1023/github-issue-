@@ -15,3 +15,6 @@ github-tokenの取得方法は[こちら](https://docs.github.com/ja/github/auth
 
 リポジトリの設定のSecretsで `` New repository secret `` を選択して、
 ``TOKEN`` で作成したトークンを登録してください
+
+## 注意
+- 内容以下で``#``を使う場合は、``###``を使ってください(``##``を使っても、issueの本文に含まれないです！)
